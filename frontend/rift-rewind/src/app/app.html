@@ -1,0 +1,40 @@
+<div class="app-container">
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <h1>RIFT REWIND</h1>
+        <p class="tagline">Your 2024 League of Legends Journey</p>
+      </div>
+      <nav class="nav">
+        <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
+          <span class="icon">📊</span>
+          Dashboard
+        </a>
+        <a routerLink="/year-recap" routerLinkActive="active" class="nav-link">
+          <span class="icon">🎬</span>
+          Year Recap
+        </a>
+        <a routerLink="/insights" routerLinkActive="active" class="nav-link">
+          <span class="icon">🎯</span>
+          Insights
+        </a>
+        <a routerLink="/champions" routerLinkActive="active" class="nav-link">
+          <span class="icon">⚔️</span>
+          Champions
+        </a>
+        <a routerLink="/social" routerLinkActive="active" class="nav-link">
+          <span class="icon">👥</span>
+          Social
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <router-outlet />
+  </main>
+
+  <footer class="footer">
+    <p>Powered by AWS & Riot Games API | Built for Hackathon 2024</p>
+  </footer>
+</div>

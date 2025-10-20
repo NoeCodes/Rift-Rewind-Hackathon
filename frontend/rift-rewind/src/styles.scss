@@ -1,0 +1,177 @@
+/* Global Styles - League of Legends Theme */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0a1428;
+  color: #f0e6d2;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a1428;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c89b3c;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f0e6d2;
+}
+
+/* Utility Classes */
+.card {
+  background: linear-gradient(135deg, #1e2328 0%, #0a1428 100%);
+  border: 2px solid rgba(200, 155, 60, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #c89b3c;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(200, 155, 60, 0.3);
+  }
+}
+
+.stat-card {
+  background: linear-gradient(135deg, rgba(30, 35, 40, 0.8), rgba(10, 20, 40, 0.9));
+  border: 2px solid rgba(200, 155, 60, 0.4);
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #c89b3c;
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(200, 155, 60, 0.5);
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #c89b3c 0%, #f0e6d2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    color: #a09b8c;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #c89b3c 0%, #f0e6d2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #c89b3c 0%, #f0e6d2 100%);
+  color: #0a1428;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(200, 155, 60, 0.4);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(200, 155, 60, 0.6);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.champion-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #c89b3c;
+  box-shadow: 0 0 15px rgba(200, 155, 60, 0.5);
+  object-fit: cover;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(200, 155, 60, 0.1) 0%,
+    rgba(200, 155, 60, 0.3) 50%,
+    rgba(200, 155, 60, 0.1) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}

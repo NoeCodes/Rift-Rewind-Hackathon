@@ -1,0 +1,74 @@
+<div class="year-recap fade-in">
+  <div class="recap-header">
+    <h1 class="section-title">2024 Rift Rewind</h1>
+    <p class="subtitle">Your personalized year-end recap</p>
+  </div>
+
+  <div class="slideshow-container">
+    <div class="slide-wrapper">
+      <div class="slide" *ngFor="let slide of slides; let i = index"
+           [class.active]="i === currentSlide"
+           [class.prev]="i < currentSlide"
+           [class.next]="i > currentSlide">
+        <div class="slide-content">
+          <div class="slide-emoji">{{ slide.emoji }}</div>
+          <h2 class="slide-title">{{ slide.title }}</h2>
+          <p class="slide-subtitle">{{ slide.subtitle }}</p>
+          <div class="slide-highlight">{{ slide.highlight }}</div>
+          <p class="slide-text">{{ slide.content }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-controls">
+      <button class="control-btn" (click)="prevSlide()" [disabled]="currentSlide === 0">
+        ← Previous
+      </button>
+      <div class="slide-indicators">
+        <span
+          class="indicator"
+          *ngFor="let slide of slides; let i = index"
+          [class.active]="i === currentSlide"
+          (click)="currentSlide = i">
+        </span>
+      </div>
+      <button class="control-btn" (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1">
+        Next →
+      </button>
+    </div>
+  </div>
+
+  <div class="share-section card">
+    <h3>Share Your Recap!</h3>
+    <p>Show off your 2024 League of Legends journey with your friends</p>
+    <div class="share-buttons">
+      <button class="btn-primary" (click)="shareRecap()">
+        📤 Generate Share Image
+      </button>
+      <button class="btn-primary">
+        🐦 Share on Twitter
+      </button>
+      <button class="btn-primary">
+        💬 Share on Discord
+      </button>
+    </div>
+  </div>
+
+  <div class="highlights-grid grid-3">
+    <div class="highlight-card card">
+      <h3>Total Games</h3>
+      <div class="highlight-value">1,247</div>
+      <p>You never missed a beat!</p>
+    </div>
+    <div class="highlight-card card">
+      <h3>Best KDA</h3>
+      <div class="highlight-value">12.5</div>
+      <p>Your best performance</p>
+    </div>
+    <div class="highlight-card card">
+      <h3>Champions Played</h3>
+      <div class="highlight-value">47</div>
+      <p>Versatility is key!</p>
+    </div>
+  </div>
+</div>

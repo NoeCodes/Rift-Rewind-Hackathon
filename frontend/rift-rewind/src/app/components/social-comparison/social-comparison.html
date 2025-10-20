@@ -1,0 +1,72 @@
+<div class="social-comparison fade-in">
+  <h1 class="section-title">Social Comparison</h1>
+  <p class="subtitle">Compare your stats with friends and find your best duo partners</p>
+
+  <div class="card leaderboard-section">
+    <h2 class="section-subtitle">👑 Friend Leaderboard</h2>
+    <div class="leaderboard-table">
+      <div class="table-header">
+        <span>Rank</span>
+        <span>Player</span>
+        <span>Tier</span>
+        <span>Win Rate</span>
+        <span>KDA</span>
+        <span>Games</span>
+      </div>
+      <div
+        class="table-row"
+        *ngFor="let friend of friends; let i = index"
+        [class.highlight]="friend.isYou">
+        <span class="rank">{{ i + 1 }}</span>
+        <div class="player-info">
+          <div class="player-avatar">{{ friend.name[0] }}</div>
+          <span class="player-name">{{ friend.name }}</span>
+        </div>
+        <span class="rank-badge">{{ friend.rank }}</span>
+        <span class="win-rate" [class.high]="friend.winRate >= 55">{{ friend.winRate }}%</span>
+        <span class="kda">{{ friend.kda }}</span>
+        <span class="games">{{ friend.games }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="compatibility-section">
+    <h2 class="section-title">🤝 Duo Queue Compatibility</h2>
+    <p class="subtitle">AI-analyzed playstyle matches based on your gameplay patterns</p>
+
+    <div class="compatibility-grid grid-2">
+      <div class="card compatibility-card" *ngFor="let match of playstyleCompatibility">
+        <div class="compatibility-header">
+          <h3>{{ match.name }}</h3>
+          <div class="compatibility-score" [class.high]="match.compatibility >= 85">
+            {{ match.compatibility }}%
+          </div>
+        </div>
+        <div class="style-badge">{{ match.style }}</div>
+        <p class="compatibility-reason">{{ match.reason }}</p>
+        <button class="btn-primary">Send Duo Request</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="achievements-section">
+    <h2 class="section-title">🏆 Group Achievements</h2>
+    <div class="achievements-grid grid-4">
+      <div class="card achievement-card" *ngFor="let achievement of achievements">
+        <div class="achievement-icon">🏆</div>
+        <h4>{{ achievement.title }}</h4>
+        <div class="winner">{{ achievement.winner }}</div>
+        <div class="value">{{ achievement.value }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card share-section">
+    <h3>Share Your Progress</h3>
+    <p>Challenge your friends and share your stats on social media</p>
+    <div class="share-buttons">
+      <button class="btn-primary">📤 Share Comparison</button>
+      <button class="btn-primary">🎯 Challenge Friends</button>
+    </div>
+  </div>
+</div>

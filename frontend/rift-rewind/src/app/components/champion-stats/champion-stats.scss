@@ -1,0 +1,174 @@
+.champion-stats {
+  .subtitle {
+    text-align: center;
+    color: #a09b8c;
+    margin-bottom: 2rem;
+  }
+
+  .filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    .filter-group {
+      label {
+        color: #c89b3c;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .role-buttons {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+
+        .filter-btn {
+          padding: 0.5rem 1rem;
+          background: rgba(200, 155, 60, 0.1);
+          border: 2px solid rgba(200, 155, 60, 0.3);
+          border-radius: 6px;
+          color: #f0e6d2;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(200, 155, 60, 0.2);
+          }
+
+          &.active {
+            background: linear-gradient(135deg, #c89b3c, #f0e6d2);
+            color: #0a1428;
+            border-color: #c89b3c;
+          }
+        }
+      }
+
+      .sort-select {
+        padding: 0.5rem 1rem;
+        background: rgba(200, 155, 60, 0.1);
+        border: 2px solid rgba(200, 155, 60, 0.3);
+        border-radius: 6px;
+        color: #f0e6d2;
+        font-size: 1rem;
+
+        option {
+          background: #1e2328;
+        }
+      }
+    }
+  }
+
+  .champions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+
+    .champion-card {
+      .champion-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+
+        .champion-avatar-large {
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #c89b3c, #f0e6d2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2rem;
+          font-weight: 700;
+          color: #0a1428;
+          border: 3px solid #c89b3c;
+        }
+
+        .champion-title {
+          h3 {
+            margin: 0 0 0.5rem;
+            color: #f0e6d2;
+            font-size: 1.5rem;
+          }
+
+          .role-badge {
+            background: rgba(200, 155, 60, 0.2);
+            color: #c89b3c;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+          }
+        }
+      }
+
+      .champion-quick-stats {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 1.5rem;
+
+        .quick-stat {
+          text-align: center;
+
+          .value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #c89b3c;
+
+            &.high {
+              color: #4dff88;
+            }
+          }
+
+          .label {
+            display: block;
+            font-size: 0.75rem;
+            color: #a09b8c;
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      .champion-details {
+        margin-bottom: 1rem;
+
+        .detail-row {
+          display: flex;
+          justify-content: space-between;
+          padding: 0.5rem 0;
+          border-bottom: 1px solid rgba(200, 155, 60, 0.1);
+
+          .detail-label {
+            color: #a09b8c;
+            font-size: 0.875rem;
+          }
+
+          .detail-value {
+            color: #f0e6d2;
+            font-weight: 600;
+          }
+        }
+      }
+
+      .win-rate-bar {
+        height: 8px;
+        border-radius: 4px;
+        overflow: hidden;
+        display: flex;
+
+        .win-section {
+          background: linear-gradient(90deg, #4dff88, #2ecc71);
+        }
+
+        .loss-section {
+          background: linear-gradient(90deg, #ff4d4d, #c0392b);
+        }
+      }
+    }
+  }
+}

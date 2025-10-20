@@ -1,0 +1,74 @@
+<div class="champion-stats fade-in">
+  <h1 class="section-title">Champion Statistics</h1>
+  <p class="subtitle">Detailed breakdown of your champion performance</p>
+
+  <div class="filters card">
+    <div class="filter-group">
+      <label>Filter by Role:</label>
+      <div class="role-buttons">
+        <button
+          *ngFor="let role of roles"
+          class="filter-btn"
+          [class.active]="selectedRole === role"
+          (click)="selectRole(role)">
+          {{ role }}
+        </button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <label>Sort by:</label>
+      <select [(ngModel)]="sortBy" class="sort-select">
+        <option value="games">Games Played</option>
+        <option value="winRate">Win Rate</option>
+        <option value="kda">KDA</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="champions-grid">
+    <div class="card champion-card" *ngFor="let champ of filteredChampions">
+      <div class="champion-header">
+        <div class="champion-avatar-large">{{ champ.name[0] }}</div>
+        <div class="champion-title">
+          <h3>{{ champ.name }}</h3>
+          <span class="role-badge">{{ champ.role }}</span>
+        </div>
+      </div>
+
+      <div class="champion-quick-stats">
+        <div class="quick-stat">
+          <span class="value">{{ champ.games }}</span>
+          <span class="label">Games</span>
+        </div>
+        <div class="quick-stat">
+          <span class="value" [class.high]="champ.winRate >= 55">{{ champ.winRate }}%</span>
+          <span class="label">Win Rate</span>
+        </div>
+        <div class="quick-stat">
+          <span class="value">{{ champ.kda }}</span>
+          <span class="label">KDA</span>
+        </div>
+      </div>
+
+      <div class="champion-details">
+        <div class="detail-row">
+          <span class="detail-label">Wins / Losses</span>
+          <span class="detail-value">{{ champ.wins }}W - {{ champ.losses }}L</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">CS per Min</span>
+          <span class="detail-value">{{ champ.cs }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Avg Gold</span>
+          <span class="detail-value">{{ champ.gold }}</span>
+        </div>
+      </div>
+
+      <div class="win-rate-bar">
+        <div class="win-section" [style.width.%]="(champ.wins / champ.games) * 100"></div>
+        <div class="loss-section" [style.width.%]="(champ.losses / champ.games) * 100"></div>
+      </div>
+    </div>
+  </div>
+</div>

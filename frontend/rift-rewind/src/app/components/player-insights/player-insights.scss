@@ -1,0 +1,262 @@
+.player-insights {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .insights-header {
+    text-align: center;
+    margin-bottom: 1rem;
+
+    .subtitle {
+      color: #a09b8c;
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2rem;
+
+    .section-subtitle {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .insight-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .insight-item {
+        .insight-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1rem;
+
+          .insight-icon {
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(200, 155, 60, 0.1);
+            border-radius: 50%;
+            border: 2px solid rgba(200, 155, 60, 0.3);
+          }
+
+          .insight-info {
+            flex: 1;
+
+            h3 {
+              margin: 0 0 0.5rem;
+              color: #f0e6d2;
+              font-size: 1.1rem;
+            }
+
+            p {
+              margin: 0;
+              color: #a09b8c;
+              font-size: 0.875rem;
+            }
+          }
+        }
+
+        .progress-bar {
+          position: relative;
+          height: 30px;
+          background: rgba(200, 155, 60, 0.1);
+          border-radius: 15px;
+          overflow: hidden;
+          margin-bottom: 0.75rem;
+
+          .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #c89b3c, #f0e6d2);
+            transition: width 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 0.75rem;
+          }
+
+          &.weakness .progress-fill {
+            background: linear-gradient(90deg, #d13639, #f09819);
+          }
+
+          .progress-label {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 700;
+            color: #0a1428;
+            font-size: 0.875rem;
+          }
+        }
+
+        .tip {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.75rem 1rem;
+          background: rgba(200, 155, 60, 0.1);
+          border-left: 3px solid #c89b3c;
+          border-radius: 4px;
+          font-size: 0.875rem;
+          color: #f0e6d2;
+
+          .tip-icon {
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+  }
+
+  .growth-chart-section {
+    margin-top: 2rem;
+
+    .subtitle {
+      color: #a09b8c;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .chart-container {
+      overflow-x: auto;
+
+      .chart-bars {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        height: 300px;
+        gap: 1rem;
+        padding: 1rem;
+        min-width: 600px;
+
+        .bar {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+
+          .bar-fill {
+            width: 100%;
+            background: linear-gradient(180deg, #c89b3c, #f0e6d2);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: height 1s ease;
+            min-height: 10%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 0.5rem;
+
+            .bar-value {
+              font-size: 0.75rem;
+              font-weight: 700;
+              color: #0a1428;
+            }
+          }
+
+          .bar-label {
+            font-size: 0.75rem;
+            color: #a09b8c;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
+
+  .ai-insights-section {
+    margin-top: 2rem;
+    text-align: center;
+
+    .subtitle {
+      color: #a09b8c;
+      margin-bottom: 2rem;
+    }
+
+    .ai-cards {
+      .ai-card {
+        position: relative;
+        padding-top: 3rem;
+        text-align: left;
+
+        .ai-badge {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background: linear-gradient(135deg, #c89b3c, #f0e6d2);
+          color: #0a1428;
+          padding: 0.25rem 0.75rem;
+          border-radius: 12px;
+          font-size: 0.7rem;
+          font-weight: 700;
+          letter-spacing: 1px;
+        }
+
+        h3 {
+          color: #c89b3c;
+          font-size: 1.25rem;
+          margin: 0 0 1rem;
+        }
+
+        .ai-insight {
+          color: #f0e6d2;
+          font-size: 1rem;
+          margin: 1rem 0;
+          line-height: 1.6;
+        }
+
+        .ai-recommendation {
+          background: rgba(200, 155, 60, 0.1);
+          padding: 1rem;
+          border-radius: 8px;
+          border-left: 3px solid #c89b3c;
+          margin-top: 1rem;
+
+          strong {
+            color: #c89b3c;
+          }
+        }
+      }
+    }
+  }
+
+  .cta-section {
+    text-align: center;
+    padding: 2.5rem;
+    margin-top: 2rem;
+
+    h3 {
+      font-size: 1.5rem;
+      color: #c89b3c;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #a09b8c;
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .player-insights {
+    .insights-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .growth-chart-section .chart-container .chart-bars {
+      gap: 0.5rem;
+    }
+  }
+}
