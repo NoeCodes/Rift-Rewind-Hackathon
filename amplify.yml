@@ -1,8 +1,3 @@
-# AWS Amplify build configuration for Angular frontend deployment
-# This file configures Amplify to navigate to the Angular app in frontend/rift-rewind/,
-# install dependencies, build the production bundle, and deploy the compiled artifacts
-# from the dist/rift-rewind/browser directory.
-
 version: 1
 frontend:
   phases:
@@ -14,9 +9,9 @@ frontend:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: dist/rift-rewind/browser
+    baseDirectory: dist/rift-rewind
     files:
       - '**/*'
   cache:
     paths:
-      - frontend/rift-rewind/node_modules/**/*
+      - node_modules/**/*
