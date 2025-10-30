@@ -2,6 +2,11 @@ import os
 import requests
 from dotenv import load_dotenv
 from datetime import datetime
+import logging
+logging.basicConfig(
+    level=logging.INFO,  # controls which messages show (DEBUG, INFO, WARNING, ERROR)
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+)
 
 # Load environment variables from .env
 load_dotenv()

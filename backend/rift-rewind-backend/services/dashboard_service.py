@@ -1,5 +1,8 @@
 import services.riot_api
 import time 
+import logging
+
+logger = logging.getLogger(__name__)
 
 def calculate_dashboard_stats(puuid, match_ids):
     total_games = len(match_ids)
@@ -47,12 +50,19 @@ def calculate_dashboard_stats(puuid, match_ids):
         "hours_played": hours_played
     }
 
-# I still need to fix this -Noe
 def ranked_status(puuid):
     ranked_data = services.riot_api.get_rank_data_by_puuid(puuid)
-    tier = ranked_data[0]["tier"]
-    rank = ranked_data[0]["rank"]
-    return {
-        "tier": tier,
-        "rank": rank,
-    }
+    tier = "Unranked"
+    rank = "Unranked"
+
+    if not ranked_data:
+        logger.warning("ranked_data is empty.")
+    elif ranked_data[0].get("queueType") != "RANKED_SOLO_5x5":
+        logger.warning("RANKED_SOLO_5x5 not found in first entry.")
+    else:
+        tier = ranked_data[0]["tier"]
+        rank = ranked_data[0]["rank"]
+        logger.info("Ranked status found successfully.")
+
+    return {"tier": tier,
+            "rank": rank}
