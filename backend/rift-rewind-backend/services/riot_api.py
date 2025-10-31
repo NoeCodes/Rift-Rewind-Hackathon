@@ -64,3 +64,9 @@ def get_rank_data_by_puuid(puuid):
     headers = {"X-Riot-Token": RIOT_API_KEY}
     r = requests.get(url, headers=headers)
     return r.json()
+
+def get_champions_mastery(puuid):
+    url = f"https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}"
+    headers = {"X-Riot-Token": RIOT_API_KEY}
+    r = requests.get(url, headers=headers)
+    return r.json()
