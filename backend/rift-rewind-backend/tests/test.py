@@ -10,6 +10,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from services.riot_api import get_puuid
 from services.riot_api import get_match_ids_last_year
 from services.dashboard_service import calculate_dashboard_stats
+from services.insight_service import get_most_played_champion
 
 def get_puuid_test():
     # Example player
@@ -37,7 +38,9 @@ def calculate_dashboard_stats_test():
         
 # Use any function here to test
 if __name__ == "__main__":
-    puuid = get_puuid("Nikuz", "MIKUZ")
+    puuid = get_puuid("Nikuz", "MIKUZ") #Mugi ツ#wara, YorozuyaSho#0725
     match_ids = get_match_ids_last_year(puuid)
     stats = calculate_dashboard_stats(puuid, match_ids)
     print(stats)
+    print(puuid)
+    print(get_most_played_champion(puuid, top_n=5))

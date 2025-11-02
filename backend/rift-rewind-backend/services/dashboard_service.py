@@ -1,6 +1,7 @@
 import services.riot_api
 import time 
 import logging
+import services.insight_service as insight_service
 
 logger = logging.getLogger(__name__)
 
@@ -83,6 +84,9 @@ def calculate_dashboard_stats(puuid, match_ids):
         batch = match_ids[i:i+batch_size]
         for mid in batch:
             match = services.riot_api.get_match_details(mid)
+
+            insight_service.receive_match_json(match, puuid) # calls insight_service.py function
+
             if "status" in match:
                 logger.warning(f"Error for match {mid}: {match['status']}")
                 time.sleep(2)  # small delay before next request
@@ -92,7 +96,7 @@ def calculate_dashboard_stats(puuid, match_ids):
                 logger.warning(f"Skipping match {mid} — no 'info' field")
                 time.sleep(2)
                 continue
-            
+
             matches.append(match)
             
         logger.info(f"Finished batch {i // batch_size + 1}, cooling down...")
