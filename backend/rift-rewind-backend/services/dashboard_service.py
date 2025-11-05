@@ -1,6 +1,7 @@
 import services.riot_api
 import time 
 import logging
+import json
 import services.insight_service as insight_service
 
 logger = logging.getLogger(__name__)
@@ -80,6 +81,9 @@ def calculate_dashboard_stats(puuid, match_ids):
     batch_size = 20
     cooldown = 25 
 
+    # For testing only — limit to first 40 matches (2 batches of 20)
+    #match_ids = match_ids[:20]
+
     for i in range(0, len(match_ids), batch_size):
         batch = match_ids[i:i+batch_size]
         for mid in batch:
@@ -107,6 +111,7 @@ def calculate_dashboard_stats(puuid, match_ids):
     hours_played = get_hours_played(puuid, matches)
     favorite_role = get_favorite_role(puuid, matches)
     ranked_info = ranked_status(puuid)
+    top_3_champions = get_top_champions_preview(puuid, matches)
     logger.info("Calculating dashboard stats successful.")
 
     return {
@@ -114,5 +119,71 @@ def calculate_dashboard_stats(puuid, match_ids):
         "win_rate": win_rate,
         "hours_played": hours_played,
         "favorite_role": favorite_role,
-        "ranked_status": ranked_info
+        "ranked_status": ranked_info,
+        "top_3_champions": top_3_champions
     }
+    
+
+def get_top_champions_preview(puuid, matches):
+    top_champions = services.riot_api.get_champions_mastery(puuid)
+    if not top_champions:
+        logger.warning("No champion mastery data returned for this player.")
+        return {}
+
+    top_3_champions = top_champions[:3]
+    
+    with open("/Users/noecifuentes/Desktop/Rift Rewind Hackathon/Rift-Rewind-Hackathon/backend/rift-rewind-backend/data/champions.json") as f:
+        champion_map = json.load(f)
+    
+    top_3_champions_dict = {}
+    for champ in top_3_champions:
+        champ_id = str(champ["championId"])
+        champ_name = champion_map.get(champ_id, "Unknown")
+        games_played = 0
+        win_rate = 0.0
+        total_wins = 0
+        total_kda = 0.0
+        games_played = 0
+        average_kda = 0.0
+        if champ_name != "Unknown":
+            champ_initial = champ_name[0]
+        else:
+            champ_initial = "?"
+            
+        # Nested loop to calculate win_rate and kda for each champion
+        for match in matches:
+            player = next((p for p in match["info"]["participants"] if p["puuid"] == puuid), None)
+            if not player:
+                logger.warning(f"Skipping match {match.get('metadata', {}).get('matchId', 'unknown')} — player not found.")
+                continue
+            player_challenge = player["challenges"]
+            if player["championName"] != champ_name:
+                continue
+            games_played += 1
+            if player["win"]:
+                total_wins += 1
+            total_kda += player_challenge.get("kda", 0.0)
+            
+        if games_played != 0:
+            win_rate = round((total_wins / games_played) * 100, 1)
+            average_kda = round((total_kda / games_played) * 100, 1)
+        else:
+            logger.warning(f"{champ_name} had 0 games played in match data.")
+            win_rate = 0.0
+            average_kda = 0.0
+            
+            
+        
+
+        top_3_champions_dict[champ_name] = {
+            "champion_name": champ_name,
+            "champion_initial": champ_initial,
+            "games_played": games_played,
+            "win_rate": win_rate,
+            "kda": average_kda
+        }
+
+    return top_3_champions_dict
+    
+def get_champion_name(champion_id):
+    return champion_map.get(str(champion_id), "Unknown")
