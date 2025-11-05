@@ -38,7 +38,7 @@ def calculate_dashboard_stats_test():
         
 # Use any function here to test
 if __name__ == "__main__":
-    puuid = get_puuid("Nikuz", "MIKUZ") #Mugi ツ#wara, YorozuyaSho#0725
+    puuid = get_puuid("PAPA", "sanda") #Mugi ツ#wara, YorozuyaSho#0725
     match_ids = get_match_ids_last_year(puuid)
     stats = calculate_dashboard_stats(puuid, match_ids)
     print(stats)
