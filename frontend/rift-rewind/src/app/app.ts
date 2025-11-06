@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule } from '@angular/common';   
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule,         
+    CommonModule,
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
-    FormsModule,
+    FormsModule
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.scss']
@@ -22,8 +21,6 @@ export class App {
   searchTag: string = '';
   filteredPlayers: any[] = [];
   showSearchScreen: boolean = true;
-
-  constructor(private http: HttpClient) {}
 
   searchPlayer() {
     const name = this.searchName.trim().toLowerCase();
