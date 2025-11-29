@@ -1,7 +1,8 @@
 import services.riot_api
-import time 
+import time
 import logging
 import json
+import os
 import services.insight_service as insight_service
 
 logger = logging.getLogger(__name__)
@@ -77,34 +78,36 @@ def get_hours_played(puuid, matches):
 
 
 def calculate_dashboard_stats(puuid, match_ids):
-    matches = []    # List of all matches data
-    batch_size = 20
-    cooldown = 25 
+    """
+    Calculate dashboard statistics from match data
 
-    # For testing only — limit to first 40 matches (2 batches of 20)
-    #match_ids = match_ids[:20]
+    Args:
+        puuid: Player's PUUID
+        match_ids: List of match IDs to process
 
-    for i in range(0, len(match_ids), batch_size):
-        batch = match_ids[i:i+batch_size]
-        for mid in batch:
-            match = services.riot_api.get_match_details(mid)
+    Returns:
+        Dictionary with dashboard statistics
+    """
+    matches = []
 
-            insight_service.receive_match_json(match, puuid) # calls insight_service.py function
+    logger.info(f"Processing {len(match_ids)} matches...")
 
-            if "status" in match:
-                logger.warning(f"Error for match {mid}: {match['status']}")
-                time.sleep(2)  # small delay before next request
-                continue
+    for mid in match_ids:
+        match = services.riot_api.get_match_details(mid)
 
-            if "info" not in match:
-                logger.warning(f"Skipping match {mid} — no 'info' field")
-                time.sleep(2)
-                continue
+        insight_service.receive_match_json(match, puuid)
 
-            matches.append(match)
-            
-        logger.info(f"Finished batch {i // batch_size + 1}, cooling down...")
-        time.sleep(cooldown)
+        if "status" in match:
+            logger.warning(f"Error for match {mid}: {match['status']}")
+            continue
+
+        if "info" not in match:
+            logger.warning(f"Skipping match {mid} — no 'info' field")
+            continue
+
+        matches.append(match)
+
+    logger.info(f"Successfully processed {len(matches)} matches")
 
     total_games = len(matches)
     win_rate = get_win_rate(puuid, matches)
@@ -131,8 +134,12 @@ def get_top_champions_preview(puuid, matches):
         return {}
 
     top_3_champions = top_champions[:3]
-    
-    with open("/Users/noecifuentes/Desktop/Rift Rewind Hackathon/Rift-Rewind-Hackathon/backend/rift-rewind-backend/data/champions.json") as f:
+
+    # Use relative path to champions.json
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    champions_json_path = os.path.join(current_dir, "..", "data", "champions.json")
+
+    with open(champions_json_path) as f:
         champion_map = json.load(f)
     
     top_3_champions_dict = {}

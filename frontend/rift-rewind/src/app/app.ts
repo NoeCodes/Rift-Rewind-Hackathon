@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from './services/api.service';
+import { PlayerDataService } from './services/player-data.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +23,14 @@ export class App {
   searchTag: string = '';
   filteredPlayers: any[] = [];
   showSearchScreen: boolean = true;
+  isLoading: boolean = false;
+  errorMessage: string = '';
+
+  constructor(
+    private apiService: ApiService,
+    private playerDataService: PlayerDataService,
+    private router: Router
+  ) {}
 
   searchPlayer() {
     const name = this.searchName.trim().toLowerCase();
@@ -45,6 +55,27 @@ export class App {
   }
 
   exitSearch() {
-    this.showSearchScreen = false;
+    if (!this.searchName.trim() || !this.searchTag.trim()) {
+      this.errorMessage = 'Please enter both player name and tag';
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.apiService.getPlayerData(this.searchName.trim(), this.searchTag.trim())
+      .subscribe({
+        next: (data) => {
+          this.playerDataService.setPlayerData(data);
+          this.isLoading = false;
+          this.showSearchScreen = false;
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message || 'Failed to fetch player data. Please try again.';
+          console.error('Error fetching player data:', error);
+        }
+      });
   }
 }

@@ -11,7 +11,9 @@ logging.basicConfig(
 # Load environment variables from .env
 load_dotenv()
 
-RIOT_API_KEY = os.environ['RIOT_KEY']
+# ⚠️ UPDATE THIS DAILY - Riot dev API keys expire after 24 hours
+# Get a new key from: https://developer.riotgames.com/
+RIOT_API_KEY = "RGAPI-600c0594-1956-4435-a092-e514b82674be"  # Replace with your current API key
 
 def get_puuid(game_name, tag_line):
     region = "americas"  # or europe/asia depending on the player
@@ -27,31 +29,30 @@ def get_puuid(game_name, tag_line):
     data = response.json()
     return data.get("puuid")
 
-def get_match_ids_last_year(puuid):
-    start_time = 1735689600 # Unix time stamp for the start of 2025
-    end_time = int(datetime.now().timestamp())
-    start = 0
-    all_ids = []
+def get_match_ids_last_year(puuid, count=10):
+    """
+    Fetch recent match IDs for a player
 
-    while True:
-        url = f"https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids"
-        params = {
-            "startTime": start_time,
-            "endTime": end_time,
-            "start": start,
-            "count": 100
-        }
-        headers = {"X-Riot-Token": RIOT_API_KEY}
-        r = requests.get(url, headers=headers, params=params)
-        batch = r.json()
+    Args:
+        puuid: Player's PUUID
+        count: Number of recent matches to fetch (default: 10)
 
-        if not batch:
-            break
+    Returns:
+        List of match IDs
+    """
+    url = f"https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids"
+    params = {
+        "start": 0,
+        "count": count
+    }
+    headers = {"X-Riot-Token": RIOT_API_KEY}
+    r = requests.get(url, headers=headers, params=params)
 
-        all_ids.extend(batch)
-        start += 100
+    if r.status_code != 200:
+        print(f"Error fetching match IDs: {r.status_code}")
+        return []
 
-    return all_ids
+    return r.json()
 
 def get_match_details(match_id):
     url = f"https://americas.api.riotgames.com/lol/match/v5/matches/{match_id}"

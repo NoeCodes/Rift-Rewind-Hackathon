@@ -4,9 +4,15 @@
     <p class="search-subtitle">Find your player by name and tag</p>
 
     <div class="search-inputs">
-      <input type="text" placeholder="Enter name..." [(ngModel)]="searchName" (input)="searchPlayer()" />
-      <input type="text" placeholder="Enter tag..." [(ngModel)]="searchTag" (input)="searchPlayer()" />
-      <button (click)="exitSearch()" class="search-btn">Continue</button>
+      <input type="text" placeholder="Enter name..." [(ngModel)]="searchName" (input)="searchPlayer()" [disabled]="isLoading" />
+      <input type="text" placeholder="Enter tag..." [(ngModel)]="searchTag" (input)="searchPlayer()" [disabled]="isLoading" />
+      <button (click)="exitSearch()" class="search-btn" [disabled]="isLoading">
+        {{ isLoading ? 'Loading...' : 'Continue' }}
+      </button>
+    </div>
+
+    <div class="error-message" *ngIf="errorMessage" style="color: red; margin-top: 10px; text-align: center;">
+      {{ errorMessage }}
     </div>
 
     <div class="search-results" *ngIf="filteredPlayers.length > 0">
