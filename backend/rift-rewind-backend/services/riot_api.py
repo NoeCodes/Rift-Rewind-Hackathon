@@ -13,7 +13,7 @@ load_dotenv()
 
 # ⚠️ UPDATE THIS DAILY - Riot dev API keys expire after 24 hours
 # Get a new key from: https://developer.riotgames.com/
-RIOT_API_KEY = "RGAPI-600c0594-1956-4435-a092-e514b82674be"  # Replace with your current API key
+RIOT_API_KEY = "RGAPI-b20ec29d-cc46-4fc2-91d6-0889cd2a675f"  # Replace with your current API key
 
 def get_puuid(game_name, tag_line):
     region = "americas"  # or europe/asia depending on the player

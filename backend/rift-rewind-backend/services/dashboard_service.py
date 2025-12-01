@@ -1,4 +1,5 @@
 import services.riot_api
+import services.database as database
 import time
 import logging
 import json
@@ -80,6 +81,7 @@ def get_hours_played(puuid, matches):
 def calculate_dashboard_stats(puuid, match_ids):
     """
     Calculate dashboard statistics from match data
+    Fetches from database when available, saves new data to database
 
     Args:
         puuid: Player's PUUID
@@ -93,18 +95,28 @@ def calculate_dashboard_stats(puuid, match_ids):
     logger.info(f"Processing {len(match_ids)} matches...")
 
     for mid in match_ids:
-        match = services.riot_api.get_match_details(mid)
+        # Try to get match from database first
+        match = database.get_match(mid)
+
+        if match:
+            logger.info(f"Retrieved match {mid} from database")
+        else:
+            # Fetch from Riot API if not in database
+            logger.info(f"Fetching match {mid} from Riot API")
+            match = services.riot_api.get_match_details(mid)
+
+            if "status" in match:
+                logger.warning(f"Error for match {mid}: {match['status']}")
+                continue
+
+            if "info" not in match:
+                logger.warning(f"Skipping match {mid} — no 'info' field")
+                continue
+
+            # Save match to database
+            database.save_match(match)
 
         insight_service.receive_match_json(match, puuid)
-
-        if "status" in match:
-            logger.warning(f"Error for match {mid}: {match['status']}")
-            continue
-
-        if "info" not in match:
-            logger.warning(f"Skipping match {mid} — no 'info' field")
-            continue
-
         matches.append(match)
 
     logger.info(f"Successfully processed {len(matches)} matches")
@@ -117,7 +129,7 @@ def calculate_dashboard_stats(puuid, match_ids):
     top_3_champions = get_top_champions_preview(puuid, matches)
     logger.info("Calculating dashboard stats successful.")
 
-    return {
+    stats = {
         "total_games": total_games,
         "win_rate": win_rate,
         "hours_played": hours_played,
@@ -125,6 +137,11 @@ def calculate_dashboard_stats(puuid, match_ids):
         "ranked_status": ranked_info,
         "top_3_champions": top_3_champions
     }
+
+    # Save calculated stats to database
+    database.save_player_stats(puuid, stats)
+
+    return stats
     
 
 def get_top_champions_preview(puuid, matches):
