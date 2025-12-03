@@ -3,7 +3,8 @@
     "allow": [
       "Bash(cat:*)",
       "Bash(pip install:*)",
-      "Bash(python test_mongodb.py:*)"
+      "Bash(python test_mongodb.py:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []

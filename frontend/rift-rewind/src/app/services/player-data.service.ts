@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { PlayerData } from './api.service';
 
 @Injectable({
@@ -8,6 +8,9 @@ import { PlayerData } from './api.service';
 export class PlayerDataService {
   private playerDataSubject = new BehaviorSubject<PlayerData | null>(null);
   public playerData$: Observable<PlayerData | null> = this.playerDataSubject.asObservable();
+
+  private searchRequestSubject = new Subject<void>();
+  public searchRequest$: Observable<void> = this.searchRequestSubject.asObservable();
 
   constructor() { }
 
@@ -21,5 +24,9 @@ export class PlayerDataService {
 
   clearPlayerData() {
     this.playerDataSubject.next(null);
+  }
+
+  requestSearch() {
+    this.searchRequestSubject.next();
   }
 }

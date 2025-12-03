@@ -13,7 +13,7 @@ load_dotenv()
 
 # ⚠️ UPDATE THIS DAILY - Riot dev API keys expire after 24 hours
 # Get a new key from: https://developer.riotgames.com/
-RIOT_API_KEY = "RGAPI-b20ec29d-cc46-4fc2-91d6-0889cd2a675f"  # Replace with your current API key
+RIOT_API_KEY = "RGAPI-b9a320d2-f22c-439a-a196-773ad47bcf84"  # Replace with your current API key
 
 def get_puuid(game_name, tag_line):
     region = "americas"  # or europe/asia depending on the player
@@ -29,13 +29,13 @@ def get_puuid(game_name, tag_line):
     data = response.json()
     return data.get("puuid")
 
-def get_match_ids_last_year(puuid, count=10):
+def get_match_ids_last_year(puuid, count=100):
     """
     Fetch recent match IDs for a player
 
     Args:
         puuid: Player's PUUID
-        count: Number of recent matches to fetch (default: 10)
+        count: Number of recent matches to fetch (default: 100)
 
     Returns:
         List of match IDs
