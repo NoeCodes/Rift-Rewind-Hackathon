@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { PlayerDataService } from '../../services/player-data.service';
 import { PlayerData } from '../../services/api.service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
@@ -23,12 +22,6 @@ export class Dashboard implements OnInit {
 
   topChampions: any[] = [];
 
-  recentActivity = [
-    { date: 'Today', action: 'Completed 5 ranked games', result: '3W - 2L' },
-    { date: 'Yesterday', action: 'Achieved Gold II rank', result: 'Promotion' },
-    { date: '2 days ago', action: 'Pentakill with Ahri', result: 'Victory' }
-  ];
-
   constructor(private playerDataService: PlayerDataService) {}
 
   ngOnInit() {
@@ -37,6 +30,10 @@ export class Dashboard implements OnInit {
         this.updateDashboardWithPlayerData(data);
       }
     });
+  }
+
+  searchAnotherPlayer() {
+    this.playerDataService.requestSearch();
   }
 
   updateDashboardWithPlayerData(data: PlayerData) {

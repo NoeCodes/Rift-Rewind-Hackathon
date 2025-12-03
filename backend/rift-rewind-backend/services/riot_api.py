@@ -29,13 +29,13 @@ def get_puuid(game_name, tag_line):
     data = response.json()
     return data.get("puuid")
 
-def get_match_ids_last_year(puuid, count=10):
+def get_match_ids_last_year(puuid, count=100):
     """
     Fetch recent match IDs for a player
 
     Args:
         puuid: Player's PUUID
-        count: Number of recent matches to fetch (default: 10)
+        count: Number of recent matches to fetch (default: 100)
 
     Returns:
         List of match IDs

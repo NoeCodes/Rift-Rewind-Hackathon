@@ -216,7 +216,7 @@ def get_player_stats(puuid):
         logger.error(f"Error getting player stats: {str(e)}")
         return None
 
-def get_player_matches(puuid, limit=10):
+def get_player_matches(puuid, limit=100):
     """
     Get matches for a specific player from database
 

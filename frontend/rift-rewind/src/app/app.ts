@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from './services/api.service';
 import { PlayerDataService } from './services/player-data.service';
@@ -11,8 +11,6 @@ import { PlayerDataService } from './services/player-data.service';
   imports: [
     CommonModule,
     RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
     FormsModule
   ],
   templateUrl: './app.html',
@@ -21,7 +19,6 @@ import { PlayerDataService } from './services/player-data.service';
 export class App {
   searchName: string = '';
   searchTag: string = '';
-  filteredPlayers: any[] = [];
   showSearchScreen: boolean = true;
   isLoading: boolean = false;
   errorMessage: string = '';
@@ -30,28 +27,13 @@ export class App {
     private apiService: ApiService,
     private playerDataService: PlayerDataService,
     private router: Router
-  ) {}
-
-  searchPlayer() {
-    const name = this.searchName.trim().toLowerCase();
-    const tag = this.searchTag.trim().toLowerCase();
-
-    const mockPlayers = [
-      { name: 'Wilson', tag: 'Ethan' },
-      { name: 'Noe', tag: 'Yuvaraj' },
-      { name: 'Daniel', tag: 'Khizzer' },
-      { name: 'Abdullah', tag: 'Zane' },
-    ];
-
-    if (!name && !tag) {
-      this.filteredPlayers = [];
-      return;
-    }
-
-    this.filteredPlayers = mockPlayers.filter(p =>
-      p.name.toLowerCase().includes(name) &&
-      p.tag.toLowerCase().includes(tag)
-    );
+  ) {
+    this.playerDataService.searchRequest$.subscribe(() => {
+      this.showSearchScreen = true;
+      this.searchName = '';
+      this.searchTag = '';
+      this.errorMessage = '';
+    });
   }
 
   exitSearch() {

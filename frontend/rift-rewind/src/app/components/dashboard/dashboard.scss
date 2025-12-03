@@ -7,6 +7,42 @@
     text-align: center;
     padding: 3rem 2rem;
 
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      gap: 2rem;
+
+      .player-info {
+        flex: 1;
+        text-align: center;
+      }
+
+      .search-another-btn {
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, #c89b3c, #f0e6d2);
+        border: none;
+        border-radius: 8px;
+        color: #0a1428;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        box-shadow: 0 2px 8px rgba(200, 155, 60, 0.3);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(200, 155, 60, 0.5);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+
     .subtitle {
       color: #a09b8c;
       font-size: 1.1rem;

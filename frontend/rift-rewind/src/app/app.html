@@ -1,11 +1,11 @@
 <div *ngIf="showSearchScreen" class="search-screen">
   <div class="search-modal">
-    <h1 class="search-title">RIFT REWIND SEARCH</h1>
+    <h1 class="search-title">Player Search</h1>
     <p class="search-subtitle">Find your player by name and tag</p>
 
     <div class="search-inputs">
-      <input type="text" placeholder="Enter name..." [(ngModel)]="searchName" (input)="searchPlayer()" [disabled]="isLoading" />
-      <input type="text" placeholder="Enter tag..." [(ngModel)]="searchTag" (input)="searchPlayer()" [disabled]="isLoading" />
+      <input type="text" placeholder="Enter name..." [(ngModel)]="searchName" [disabled]="isLoading" />
+      <input type="text" placeholder="Enter tag..." [(ngModel)]="searchTag" [disabled]="isLoading" />
       <button (click)="exitSearch()" class="search-btn" [disabled]="isLoading">
         {{ isLoading ? 'Loading...' : 'Continue' }}
       </button>
@@ -14,14 +14,6 @@
     <div class="error-message" *ngIf="errorMessage" style="color: red; margin-top: 10px; text-align: center;">
       {{ errorMessage }}
     </div>
-
-    <div class="search-results" *ngIf="filteredPlayers.length > 0">
-      <ul>
-        <li *ngFor="let player of filteredPlayers">
-          <strong>{{ player.name }}</strong> — {{ player.tag }}
-        </li>
-      </ul>
-    </div>
   </div>
 </div>
 
@@ -29,32 +21,7 @@
 <div *ngIf="!showSearchScreen" class="app-container">
   <header class="header">
     <div class="header-content">
-      <div class="logo">
-        <h1>RIFT REWIND</h1>
-        <p class="tagline">Your 2024 League of Legends Journey</p>
-      </div>
-      <nav class="nav">
-        <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
-          <span class="icon">📊</span>
-          Dashboard
-        </a>
-        <a routerLink="/year-recap" routerLinkActive="active" class="nav-link">
-          <span class="icon">🎬</span>
-          Year Recap
-        </a>
-        <a routerLink="/insights" routerLinkActive="active" class="nav-link">
-          <span class="icon">🎯</span>
-          Insights
-        </a>
-        <a routerLink="/champions" routerLinkActive="active" class="nav-link">
-          <span class="icon">⚔️</span>
-          Champions
-        </a>
-        <a routerLink="/social" routerLinkActive="active" class="nav-link">
-          <span class="icon">👥</span>
-          Social
-        </a>
-      </nav>
+      <h1 class="centered-title">League of Legends Player Stats</h1>
     </div>
   </header>
 
@@ -63,6 +30,6 @@
   </main>
 
   <footer class="footer">
-    <p>Powered by AWS & Riot Games API | Built for Hackathon 2024</p>
+    <p>Powered by MongoDB & Riot Games API</p>
   </footer>
 </div>
