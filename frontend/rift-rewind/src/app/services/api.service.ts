@@ -30,7 +30,7 @@ export interface PlayerData {
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:5000/api';
+  private baseUrl = 'http://localhost:4900/api';
 
   constructor(private http: HttpClient) { }
 

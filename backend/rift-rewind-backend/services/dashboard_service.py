@@ -190,7 +190,7 @@ def get_top_champions_preview(puuid, matches):
             
         if games_played != 0:
             win_rate = round((total_wins / games_played) * 100, 1)
-            average_kda = round((total_kda / games_played) * 100, 1)
+            average_kda = round(total_kda / games_played, 2)
         else:
             logger.warning(f"{champ_name} had 0 games played in match data.")
             win_rate = 0.0
@@ -199,13 +199,15 @@ def get_top_champions_preview(puuid, matches):
             
         
 
-        top_3_champions_dict[champ_name] = {
-            "champion_name": champ_name,
-            "champion_initial": champ_initial,
-            "games_played": games_played,
-            "win_rate": win_rate,
-            "kda": average_kda
-        }
+        # Only include champions that have been played in the match history
+        if games_played > 0:
+            top_3_champions_dict[champ_name] = {
+                "champion_name": champ_name,
+                "champion_initial": champ_initial,
+                "games_played": games_played,
+                "win_rate": win_rate,
+                "kda": average_kda
+            }
 
     return top_3_champions_dict
     
