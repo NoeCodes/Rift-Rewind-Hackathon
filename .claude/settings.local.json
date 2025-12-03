@@ -4,7 +4,13 @@
       "Bash(cat:*)",
       "Bash(pip install:*)",
       "Bash(python test_mongodb.py:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(git rm:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nMerge branch ''main'' of github.com:NoeCodes/Rift-Rewind-Hackathon into main\n\nResolved conflicts in pycache files by removing them.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []

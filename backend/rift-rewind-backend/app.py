@@ -4,7 +4,6 @@ import logging
 from datetime import datetime, timedelta
 from services.riot_api import get_puuid, get_match_ids_last_year
 from services.dashboard_service import calculate_dashboard_stats
-from services.suggestions_service import generate_improvement_suggestions
 import services.database as database
 
 # Configure logging
@@ -88,57 +87,6 @@ def get_player_data(game_name, tag_line):
 
     except Exception as e:
         logger.error(f"Error fetching player data: {str(e)}")
-        return jsonify({
-            "error": "Internal server error",
-            "message": str(e)
-        }), 500
-
-@app.route('/api/suggestions/<game_name>/<tag_line>', methods=['GET'])
-def get_improvement_suggestions(game_name, tag_line):
-    """
-    Generate AI-powered improvement suggestions for a player based on their stats
-    """
-    try:
-        logger.info(f"Generating suggestions for player: {game_name}#{tag_line}")
-
-        # Get PUUID
-        puuid = get_puuid(game_name, tag_line)
-        if not puuid:
-            logger.error(f"Could not find PUUID for {game_name}#{tag_line}")
-            return jsonify({
-                "error": "Player not found",
-                "message": f"Could not find player {game_name}#{tag_line}"
-            }), 404
-
-        # Get player stats (either from cache or fresh calculation)
-        cached_stats = database.get_player_stats(puuid)
-
-        if cached_stats:
-            stats = cached_stats["stats"]
-            logger.info("Using cached stats for suggestions")
-        else:
-            # Need to calculate stats first
-            logger.info("No cached stats found, calculating fresh stats")
-            match_ids = get_match_ids_last_year(puuid)
-            if not match_ids:
-                return jsonify({
-                    "error": "No matches found",
-                    "message": "This player has no matches in 2025"
-                }), 404
-
-            stats = calculate_dashboard_stats(puuid, match_ids)
-
-        # Generate suggestions using OpenAI
-        suggestions = generate_improvement_suggestions(stats)
-
-        return jsonify({
-            "player_name": game_name,
-            "tag_line": tag_line,
-            "suggestions": suggestions
-        }), 200
-
-    except Exception as e:
-        logger.error(f"Error generating suggestions: {str(e)}")
         return jsonify({
             "error": "Internal server error",
             "message": str(e)
