@@ -30,11 +30,9 @@
         cursor: pointer;
         transition: all 0.3s ease;
         white-space: nowrap;
-        box-shadow: 0 2px 8px rgba(200, 155, 60, 0.3);
 
         &:hover {
           transform: translateY(-2px);
-          box-shadow: 0 4px 15px rgba(200, 155, 60, 0.5);
         }
 
         &:active {
@@ -62,7 +60,6 @@
         padding: 1rem 2.5rem;
         border-radius: 12px;
         border: 2px solid #c89b3c;
-        box-shadow: 0 0 30px rgba(200, 155, 60, 0.4);
 
         .rank-icon {
           font-size: 3rem;

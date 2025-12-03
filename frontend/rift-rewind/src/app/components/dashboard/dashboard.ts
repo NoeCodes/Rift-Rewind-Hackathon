@@ -14,10 +14,10 @@ export class Dashboard implements OnInit {
   playerRank = 'Unranked';
 
   quickStats = [
-    { label: 'Total Games', value: '0', icon: '🎮' },
-    { label: 'Win Rate', value: '0%', icon: '🏆' },
-    { label: 'Favorite Role', value: 'Unknown', icon: '⭐' },
-    { label: 'Hours Played', value: '0', icon: '⏱️' }
+    { label: 'Total Games', value: '0', icon: '' },
+    { label: 'Win Rate', value: '0%', icon: '' },
+    { label: 'Favorite Role', value: 'Unknown', icon: '' },
+    { label: 'Hours Played', value: '0', icon: '' }
   ];
 
   topChampions: any[] = [];
@@ -43,10 +43,10 @@ export class Dashboard implements OnInit {
 
     // Update quick stats
     this.quickStats = [
-      { label: 'Total Games', value: data.total_games.toString(), icon: '🎮' },
-      { label: 'Win Rate', value: `${data.win_rate}%`, icon: '🏆' },
-      { label: 'Favorite Role', value: data.favorite_role, icon: '⭐' },
-      { label: 'Hours Played', value: data.hours_played.toString(), icon: '⏱️' }
+      { label: 'Total Games', value: data.total_games.toString(), icon: '' },
+      { label: 'Win Rate', value: `${data.win_rate}%`, icon: '' },
+      { label: 'Favorite Role', value: data.favorite_role, icon: '' },
+      { label: 'Hours Played', value: data.hours_played.toString(), icon: '' }
     ];
 
     // Update top champions

@@ -8,7 +8,6 @@
 .header {
   background: linear-gradient(90deg, #0a1428 0%, #1e2328 50%, #0a1428 100%);
   border-bottom: 2px solid #c89b3c;
-  box-shadow: 0 4px 20px rgba(200, 155, 60, 0.3);
   padding: 1rem 2rem;
 
   .header-content {
@@ -43,7 +42,6 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin: 0;
-      text-shadow: 0 0 20px rgba(200, 155, 60, 0.5);
     }
 
     .tagline {
@@ -93,7 +91,6 @@
         background: rgba(200, 155, 60, 0.2);
         border-color: #c89b3c;
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(200, 155, 60, 0.4);
 
         &::before {
           left: 100%;
@@ -103,7 +100,6 @@
       &.active {
         background: linear-gradient(135deg, rgba(200, 155, 60, 0.3), rgba(240, 230, 210, 0.2));
         border-color: #c89b3c;
-        box-shadow: 0 0 20px rgba(200, 155, 60, 0.5);
       }
     }
   }
@@ -169,7 +165,6 @@
   border-radius: 16px;
   text-align: center;
   border: 2px solid #c89b3c;
-  box-shadow: 0 0 30px rgba(200, 155, 60, 0.3);
   animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -220,7 +215,6 @@
 
 .search-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(200, 155, 60, 0.4);
 }
 
 .search-results ul {
