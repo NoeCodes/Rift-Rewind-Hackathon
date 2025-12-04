@@ -4,19 +4,17 @@ from dotenv import load_dotenv
 from datetime import datetime
 import logging
 logging.basicConfig(
-    level=logging.INFO,  # controls which messages show (DEBUG, INFO, WARNING, ERROR)
+    level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 )
 
 # Load environment variables from .env
 load_dotenv()
 
-# ⚠️ UPDATE THIS DAILY - Riot dev API keys expire after 24 hours
-# Get a new key from: https://developer.riotgames.com/
-RIOT_API_KEY = "RGAPI-746a5e66-7b53-4ffa-89c5-8e8053f47ba4"  # Replace with your current API key
+RIOT_API_KEY = "RGAPI-746a5e66-7b53-4ffa-89c5-8e8053f47ba4"  
 
 def get_puuid(game_name, tag_line):
-    region = "americas"  # or europe/asia depending on the player
+    region = "americas"
     url = f"https://{region}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{game_name}/{tag_line}"
     headers = {"X-Riot-Token": RIOT_API_KEY}
     

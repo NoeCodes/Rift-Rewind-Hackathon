@@ -16,7 +16,6 @@ def get_database():
     """
     Get MongoDB database instance
     Returns the database connection, creating it if it doesn't exist
-    Returns None if connection fails (allows app to continue without DB)
     """
     global _mongo_client, _db, _connection_failed
 

@@ -12,12 +12,6 @@ def receive_match_json(match_json, puuid):
 
     _accumulate_champion_for_player(match_json, puuid)
 
-    # Optional: live peek at current most played after this match
-    # top = get_most_played_champion(puuid, top_n=1)
-    # if top:
-    #    champ, count = top[0]
-    #    print(f"[insight_service] Current most played: {champ} ({count}) for puuid={puuid}")
-
 
 def _accumulate_champion_for_player(match_json, puuid):
     """
@@ -36,16 +30,13 @@ def _accumulate_champion_for_player(match_json, puuid):
         print("[insight_service] No 'participants' list in 'info'; skipping accumulation.")
         return
 
-    # Find this user's participant record by puuid
     player = next((p for p in participants if p.get("puuid") == puuid), None)
     if not player:
         print(f"[insight_service] PUUID {puuid} not found among participants; skipping.")
         return
 
-    # Champion name sometimes appears with quirky capitalization; normalize lightly
     champ = player.get("championName")
     if not champ:
-        # Some older/edge cases might only have championId; you could map ID->name if you want later
         print(f"[insight_service] No 'championName' for puuid={puuid} in this match; skipping.")
         return
 
@@ -65,9 +56,6 @@ def get_most_played_champion(puuid, top_n=3):
 
 
 def reset_champion_counts(puuid=None):
-    """
-    Utility for tests/debugging. If puuid is None, clears all; else clears just that user.
-    """
     if puuid is None:
         _champion_counts.clear()
     else:
